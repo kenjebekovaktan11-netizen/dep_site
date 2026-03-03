@@ -24,7 +24,7 @@ def create_app():
 
     db_url = os.getenv("DATABASE_URL")
     if not db_url:
-        db_url = "sqlite:///instance/local.db"
+        raise RuntimeError("DATABASE_URL is not set")
 
     if db_url.startswith("postgres://"):
         db_url = db_url.replace("postgres://", "postgresql://", 1)
@@ -424,4 +424,5 @@ def delete_favorite(listing_id):
 if __name__ == "__main__":
       
     port = int(os.getenv("PORT", "5000"))
+
     app.run(host="0.0.0.0", port=port, debug=False)
